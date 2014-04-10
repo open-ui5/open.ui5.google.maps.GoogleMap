@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Example open.ui5.google.maps.GoogleMap</title>
+
+<!--Standard sapui5 init-->
+<script id="sap-ui-bootstrap"
+	src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+	data-sap-ui-theme="sap_bluecrystal"
+	data-sap-ui-libs="sap.m,sap.ui.commons"></script>
+<script>
+	var app = new sap.m.App({
+		initialPage : "openui5-GoogleMap"
+	});
+	app.placeAt("content");
+
+	var pageContent = new sap.m.Page("openui5-GoogleMap", {
+		title : "OpenUI5-GoogleMap"
+	});
+
+	jQuery.sap.require("sap.m.Input");
+	jQuery.sap.require("sap.m.Button");
+	jQuery.sap.require("sap.m.Page");
+	sap.ui.localResources("open.ui5");
+	jQuery.sap.require("open.ui5.google.maps.GoogleMap");
+
+	pageContent.addContent(new open.ui5.google.maps.GoogleMap("myMap", {
+		latitude : 51.712267,
+		longitude : 5.337817,
+		zoom : 18,
+		margin : '5px'
+	}));
+	pageContent.addContent(new sap.m.Input("myAddress", {
+		value : "Huizermaatweg,Huizen,NL"
+	}));
+	pageContent.addContent(new sap.m.Button("myButton", {
+		text : "Show Address",
+		press : function(evt) {
+			var address = sap.ui.getCore().byId("myAddress").getValue();
+			sap.ui.getCore().byId("myMap").getAddress(address);
+		}
+	}));
+	app.addPage(pageContent);
+</script>
+
+</head>
+<body class="sapUiBody">
+	<div id="content"></div>
+</body>
+</html>
